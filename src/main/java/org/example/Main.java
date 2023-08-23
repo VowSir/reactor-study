@@ -3,6 +3,9 @@ package org.example;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.regex.Pattern;
 
@@ -14,9 +17,11 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.println("Hello world!");
 
-		handleNode();
+//		handleNode();
 //		handleReg();
-//		basicAuth();
+//		basicAuth("mspbots@shartega.com","3g1kH0AOZsmXjM0Rdou2iy7FZ3UNW4RP4viMd+KT2R0LEti5");  // auvik
+		basicAuth("TNP+cuTXRINqC6VWawIA","wCfo4fYbkJDDNql0");  // connectwisemanage
+
 	}
 
 	public static void handleNode() {
@@ -48,13 +53,13 @@ public class Main {
 		System.out.println(PATTERN.matcher(s).matches());
 	}
 
-	public static void basicAuth() {
-		String username = "mspbots@shartega.com";
-		String apiKey = "3g1kH0AOZsmXjM0Rdou2iy7FZ3UNW4RP4viMd+KT2R0LEti5";
+	public static void basicAuth(String username,String apiKey) {
 		String auth = username + ":" + apiKey;
 		byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes());
 		String authHeader = "Basic " + new String(encodedAuth);
 		System.out.println(authHeader);
 	}
+
+
 
 }
