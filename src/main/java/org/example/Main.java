@@ -1,7 +1,9 @@
 package org.example;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import reactor.core.publisher.Mono;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -14,6 +16,7 @@ public class Main {
 //	private static final Pattern PATTERN = Pattern.compile(".*nulls last$", Pattern.CASE_INSENSITIVE);
 	private static final Pattern PATTERN = Pattern.compile(".*nulls last", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
 
 	public static void main(String[] args) {
 		System.out.println("Hello world!");
@@ -47,10 +50,42 @@ public class Main {
 //		System.out.println(UUID.randomUUID().toString());
 //		System.out.println(UUID.randomUUID().toString().length());
 
+//		LocalDateTime dateTime1 = LocalDateTime.of(2023, 9, 28, 10, 30, 0);
+//		LocalDateTime dateTime2 = LocalDateTime.of(2023, 9, 28, 10, 30);
+//		System.out.println(dateTime1);
+//		System.out.println(dateTime2);
+//		if (dateTime1.equals(dateTime2)) {
+//			System.out.println("dateTime1 and dateTime2 represent the same point in time.");
+//		} else {
+//			System.out.println("dateTime1 and dateTime2 do not represent the same point in time.");
+//		}
+//		LocalDateTime date = LocalDateTime.of(2023, 6, 22, 0, 0, 0);
+//		System.out.println(date);
+//		System.out.println(LocalDateTime.now());
+//		System.out.println(Duration.between(date,LocalDateTime.now()).toHours());
 
-
-
+		Mono<?> mono = madeMono(1);
+		suMone(mono);
 	}
+
+	public static void suMone(Mono<?> mono) {
+		mono.onErrorResume(err -> {
+			int a = 1/0;
+					System.out.println(" error = : "+err.getMessage());
+			return Mono.empty();
+		}).subscribe(result -> System.out.println(" result = : "+result),
+				err -> System.out.println("result - error = : "+err) );
+		}
+
+	public static Mono<?> madeMono(int a) {
+	switch (a){
+		case 1:
+			return Mono.just(1).map(x-> 1/0);
+		case 2:
+			return Mono.just(2);
+		default:
+			return Mono.just(3);
+	}}
 	public static void test1() {
 		String timeZoneId = "AE02"; // 替换为你想要查询的时区ID
 		ZoneId zoneId = ZoneId.of(timeZoneId);

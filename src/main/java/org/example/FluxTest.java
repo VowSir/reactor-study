@@ -63,7 +63,70 @@ public class FluxTest {
 //				() -> System.out.println("Data stream completed")
 //		);
 
-		test2();
+//		test2();
+//		test5();
+//		test4();
+	}
+
+
+	public static void test5(){
+		List<String> list = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			list.add(String.valueOf(i));
+		}
+
+		Mono.just(list).flatMapMany(x->{
+			System.out.println(System.currentTimeMillis() + " flatMapMany: " + x);
+			return Mono.just(x);
+		}).subscribe();
+
+
+
+//		while (true){
+//
+//		}
+
+	}
+	public static void test4(){
+		List<String> list = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			list.add(String.valueOf(i));
+		}
+
+		Mono.just(list).flatMap(x->{
+			System.out.println(System.currentTimeMillis() + " flatMap: " + x);
+			return Mono.just(x);
+		}).block();
+
+
+
+//		while (true){
+//
+//		}
+
+	}
+
+
+	public static void test3(){
+		List<String> list = new ArrayList<>();
+		for (int i = 0; i < 70; i++) {
+			list.add(String.valueOf(i));
+		}
+
+		Mono.just(list).flatMap(x->{
+			System.out.println(System.currentTimeMillis() + " flatMap: " + x);
+			int a = 1;
+			int b = 0;
+//			int c = a/b;
+			return Mono.just(x);
+		}).block(Duration.ofMillis(3000));
+
+
+
+//		while (true){
+//
+//		}
+
 	}
 	public static void test2(){
 		List<String> list = new ArrayList<>();
