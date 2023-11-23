@@ -142,14 +142,10 @@ public class FluxTest {
 
 	}
 
-	/**
-	 * 延迟五秒的两种方式  delaySeconds1 delaySeconds2一样的结果一样的效果
-	 * @return
-	 */
+
 	public static void  delaySeconds1(List<String> list){
 		AtomicLong previousTimestamp = new AtomicLong();
 
-		//没有影响doOnNext的打印
 		Flux.fromStream(list.stream())
 				.doOnNext(x->{
 					System.out.println(System.currentTimeMillis() + " doOnNext1: " + x);
@@ -170,7 +166,6 @@ public class FluxTest {
 	}
 	public static void  delaySeconds2(List<String> list){
 		AtomicLong previousTimestamp = new AtomicLong();
-		//也没有影响doOnNext的并发
 		Flux.fromStream(list.stream())
 				.doOnNext(x -> {
 					System.out.println(System.currentTimeMillis() + " doOnNext2: " + x);

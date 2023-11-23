@@ -3,6 +3,7 @@ package org.example;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import org.apache.commons.lang3.ObjectUtils;
 import reactor.core.publisher.Mono;
 
 import java.time.*;
@@ -59,15 +60,30 @@ public class Main {
 //		} else {
 //			System.out.println("dateTime1 and dateTime2 do not represent the same point in time.");
 //		}
-//		LocalDateTime date = LocalDateTime.of(2023, 6, 22, 0, 0, 0);
+//		LocalDateTime date = LocalDateTime.of(2023, 5, 15, 8, 29, 26);
 //		System.out.println(date);
 //		System.out.println(LocalDateTime.now());
-//		System.out.println(Duration.between(date,LocalDateTime.now()).toHours());
+//		System.out.println(Duration.between(date,LocalDateTime.now()).toDays());
 
-		Mono<?> mono = madeMono(1);
-		suMone(mono);
+//		Integer status = ObjectUtils.isEmpty(new Object()) ? 1 : 0;
+//		if (0 == status) {
+//			System.out.println(1);
+//		}
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("limit","1");
+		if (map.containsKey("limit")){
+			System.out.println("============");
+		}
 	}
 
+
+	public class SysUserEntity  {
+
+
+		private String username;
+
+	}
 	public static void suMone(Mono<?> mono) {
 		mono.onErrorResume(err -> {
 			int a = 1/0;
@@ -97,14 +113,13 @@ public class Main {
 		System.out.println("Total Offset: " + totalOffset + " minutes");
 	}
 	public static void handleTimeZoneId() {
-		String timeZoneId = "America/New_York"; // 替换为你想要查询的时区ID
+		String timeZoneId = "America/New_York";
 		TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
 
 		int rawOffset = timeZone.getRawOffset();
 		int dstOffset = timeZone.getDSTSavings();
 
-		int totalOffset = (rawOffset + dstOffset) / (60 * 1000); // 转换为分钟
-
+		int totalOffset = (rawOffset + dstOffset) / (60 * 1000);
 		System.out.println("Time Zone: " + timeZoneId);
 		System.out.println("Raw Offset: " + (rawOffset / (60 * 1000)) + " minutes");
 		System.out.println("DST Offset: " + (dstOffset / (60 * 1000)) + " minutes");
@@ -117,7 +132,6 @@ public class Main {
 		list.add("2");
 		list.add("3");
 		list.add("1");
-		//list 生成一个map key为元素 value为元素出现的次数
 		Map<String, Integer> map = list.stream().collect(Collectors.groupingBy(String::toString, Collectors.summingInt(x->1)));
 		System.out.println(map);
 	}
@@ -140,17 +154,17 @@ public class Main {
 		JsonNode intNode = factory.numberNode(123);
 		JsonNode nullNode = factory.nullNode();
 
-		System.out.println(textNode.asText());  // 输出 "Hello"
-		System.out.println(textNode.textValue());  // 输出 "Hello"
+		System.out.println(textNode.asText());
+		System.out.println(textNode.textValue());
 
-		System.out.println(textNode1.asText());  // 输出 "123"
-		System.out.println(textNode1.textValue());  // 输出 "123"
+		System.out.println(textNode1.asText());
+		System.out.println(textNode1.textValue());
 
-		System.out.println(intNode.asText());  // 输出 "123"
-		System.out.println(intNode.textValue());  // 输出 null
+		System.out.println(intNode.asText());
+		System.out.println(intNode.textValue());
 
-		System.out.println(nullNode.asText());  // 输出 ""
-		System.out.println(nullNode.textValue());  // 输出 null
+		System.out.println(nullNode.asText());
+		System.out.println(nullNode.textValue());
 	}
 
 	public static void handleReg() {
